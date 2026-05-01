@@ -318,6 +318,12 @@
             object-position: center center;
         }
 
+        .card-photo-fit {
+            object-fit: contain;
+            padding: 6px;
+            background: #f5f0e7;
+        }
+
         .card-emoji {
             font-size: 48px;
             line-height: 1;
@@ -1427,6 +1433,18 @@
                 }).join('');
 
                 grid.querySelectorAll('.card-photo').forEach((img) => {
+                    img.addEventListener('load', () => {
+                        const width = img.naturalWidth || 0;
+                        const height = img.naturalHeight || 0;
+                        if (!width || !height) return;
+
+                        const ratio = width / height;
+                        const shouldContain = ratio < 0.9 || ratio > 1.8;
+                        if (shouldContain) {
+                            img.classList.add('card-photo-fit');
+                        }
+                    }, { once: true });
+
                     img.addEventListener('error', () => {
                         const mediaEl = img.closest('.card-media');
                         if (!mediaEl) return;
