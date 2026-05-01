@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin de Comidas - Pizzeria Las Nenas</title>
+    <style>
+        :root {
+            --bg: #f6f2ea;
+            --card: #ffffff;
+            --ink: #1f2937;
+            --muted: #6b7280;
+            --brand: #c0392b;
+            --brand-dark: #922b21;
+            --line: #e5e7eb;
+            --ok: #166534;
+            --err: #991b1b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: radial-gradient(circle at 10% 10%, #fff8ef, var(--bg));
+            color: var(--ink);
+        }
+
+        .wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 28px 18px 40px;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .top p {
+            margin: 6px 0 0;
+            color: var(--muted);
+        }
+
+        .btn-link {
+            color: white;
+            text-decoration: none;
+            background: var(--brand);
+            border: 0;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .btn-link:hover {
+            background: var(--brand-dark);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            font-size: 20px;
+        }
+
+        .field {
+            margin-bottom: 12px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font-size: 14px;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .field textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .check {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            font-size: 14px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-weight: 700;
+        }
+
+        .btn-primary {
+            background: var(--brand);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-dark);
+        }
+
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #111827;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar input {
+            flex: 1;
+            min-width: 220px;
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            text-align: left;
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--line);
+            padding: 10px 8px;
+        }
+
+        tbody td {
+            border-bottom: 1px solid var(--line);
+            padding: 10px 8px;
+            vertical-align: top;
+            font-size: 14px;
+        }
+
+        tbody tr:hover {
+            background: #f9fafb;
+        }
+
+        .thumb {
+            width: 54px;
+            height: 54px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #f3f4f6;
+            border: 1px solid #e5e7eb;
+        }
+
+        .tag {
+            display: inline-block;
+            border: 1px solid #fed7aa;
+            background: #fff7ed;
+            color: #9a3412;
+            border-radius: 999px;
+            padding: 2px 8px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .small-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .small-actions button {
+            padding: 6px 10px;
+            font-size: 12px;
+            border-radius: 8px;
+        }
+
+        .ok,
+        .err {
+            font-size: 13px;
+            margin-top: 8px;
+            min-height: 16px;
+        }
+
+        .ok {
+            color: var(--ok);
+        }
+
+        .err {
+            color: var(--err);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .login-card {
+            margin-bottom: 20px;
+        }
+
+        .login-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto auto;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .session-row {
+            margin-top: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .session-pill {
+            font-size: 12px;
+            border: 1px solid var(--line);
+            background: #f9fafb;
+            color: #111827;
+            border-radius: 999px;
+            padding: 6px 10px;
+        }
+
+        @media (max-width: 980px) {
+            .login-row {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="top">
+            <div>
+                <h1>Admin de Comidas</h1>
+                <p>Alta, edicion y baja de productos del menu.</p>
+            </div>
+            <a class="btn-link" href="/">Volver al catalogo</a>
+        </div>
+
+        <section class="card login-card">
+            <h2>Login Admin</h2>
+            <form id="login-form">
+                <div class="login-row">
+                    <div class="field">
+                        <label for="login-user">Usuario</label>
+                        <input id="login-user" type="text" placeholder="admin" required>
+                    </div>
+                    <div class="field">
+                        <label for="login-pass">Password</label>
+                        <input id="login-pass" type="password" placeholder="••••••••" required>
+                    </div>
+                    <button class="btn-primary" type="submit" id="login-btn">Iniciar sesion</button>
+                    <button class="btn-secondary hidden" type="button" id="logout-btn">Cerrar sesion</button>
+                </div>
+                <div id="login-msg" class="err"></div>
+                <div class="session-row">
+                    <span class="session-pill" id="session-info">Sin sesion iniciada</span>
+                </div>
+            </form>
+        </section>
+
+        <div class="grid hidden" id="admin-app">
+            <section class="card">
+                <h2 id="form-title">Nueva comida</h2>
+                <form id="meal-form">
+                    <input type="hidden" id="meal-id">
+
+                    <div class="field">
+                        <label for="nombre">Nombre</label>
+                        <input id="nombre" type="text" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="field">
+                            <label for="categoria">Categoria</label>
+                            <input id="categoria" type="text" placeholder="ej: pizzas" required>
+                        </div>
+                        <div class="field">
+                            <label for="precio">Precio (ARS)</label>
+                            <input id="precio" type="number" min="0" step="1" required>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label for="foto">URL de foto</label>
+                        <input id="foto" type="url" placeholder="https://...">
+                    </div>
+
+                    <div class="field">
+                        <label for="descripcion">Descripcion</label>
+                        <textarea id="descripcion" placeholder="Detalle del producto"></textarea>
+                    </div>
+
+                    <label class="check">
+                        <input id="es_promo" type="checkbox">
+                        Es promocion
+                    </label>
+
+                    <div class="actions">
+                        <button class="btn-primary" type="submit" id="submit-btn">Guardar comida</button>
+                        <button class="btn-secondary" type="button" id="cancel-btn">Cancelar edicion</button>
+                    </div>
+
+                    <div id="form-msg" class="ok"></div>
+                </form>
+            </section>
+
+            <section class="card">
+                <div class="toolbar">
+                    <input id="search" type="text" placeholder="Buscar por nombre, categoria o descripcion">
+                    <button class="btn-secondary" id="refresh-btn" type="button">Recargar</button>
+                </div>
+                <div id="list-msg" class="err"></div>
+                <div style="overflow:auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Foto</th>
+                                <th>Nombre</th>
+                                <th>Categoria</th>
+                                <th>Precio</th>
+                                <th>Promo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rows"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="./frontend-config.js"></script>
+    <script>
+        const API_BASE_URL = (window.APP_CONFIG && typeof window.APP_CONFIG.API_BASE_URL === 'string'
+            ? window.APP_CONFIG.API_BASE_URL.trim().replace(/\/+$/, '')
+            : '');
+
+        function apiUrl(path) {
+            return API_BASE_URL ? API_BASE_URL + path : path;
+        }
+
+        const AUTH_TOKEN_KEY = 'pizzeria_admin_jwt';
+        const AUTH_EXP_KEY = 'pizzeria_admin_jwt_exp';
+        const AUTH_USER_KEY = 'pizzeria_admin_user';
+
+        const loginForm = document.getElementById('login-form');
+        const loginUser = document.getElementById('login-user');
+        const loginPass = document.getElementById('login-pass');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const loginMsgEl = document.getElementById('login-msg');
+        const sessionInfoEl = document.getElementById('session-info');
+        const adminAppEl = document.getElementById('admin-app');
+
+        const form = document.getElementById('meal-form');
+        const rowsEl = document.getElementById('rows');
+        const searchEl = document.getElementById('search');
+        const formMsgEl = document.getElementById('form-msg');
+        const listMsgEl = document.getElementById('list-msg');
+        const formTitleEl = document.getElementById('form-title');
+        const submitBtn = document.getElementById('submit-btn');
+        const cancelBtn = document.getElementById('cancel-btn');
+        const refreshBtn = document.getElementById('refresh-btn');
+
+        const fields = {
+            id: document.getElementById('meal-id'),
+            nombre: document.getElementById('nombre'),
+            categoria: document.getElementById('categoria'),
+            precio: document.getElementById('precio'),
+            foto: document.getElementById('foto'),
+            descripcion: document.getElementById('descripcion'),
+            esPromo: document.getElementById('es_promo'),
+        };
+
+        let authToken = '';
+        let authExpiresAt = '';
+        let authUsername = '';
+        let allMeals = [];
+        let editingId = null;
+
+        function fmtCurrency(n) {
+            return 'ARS ' + Number(n || 0).toLocaleString('es-AR') + ',00';
+        }
+
+        function showLoginMessage(message, isError) {
+            loginMsgEl.className = isError ? 'err' : 'ok';
+            loginMsgEl.textContent = message || '';
+        }
+
+        function showFormMessage(message, isError) {
+            formMsgEl.className = isError ? 'err' : 'ok';
+            formMsgEl.textContent = message || '';
+        }
+
+        function showListMessage(message) {
+            listMsgEl.textContent = message || '';
+        }
+
+        function setSession(username, token, expiresAt) {
+            authUsername = username || '';
+            authToken = token || '';
+            authExpiresAt = expiresAt || '';
+            localStorage.setItem(AUTH_USER_KEY, authUsername);
+            localStorage.setItem(AUTH_TOKEN_KEY, authToken);
+            localStorage.setItem(AUTH_EXP_KEY, authExpiresAt);
+            applySessionUI();
+        }
+
+        function clearSession() {
+            authUsername = '';
+            authToken = '';
+            authExpiresAt = '';
+            localStorage.removeItem(AUTH_USER_KEY);
+            localStorage.removeItem(AUTH_TOKEN_KEY);
+            localStorage.removeItem(AUTH_EXP_KEY);
+            applySessionUI();
+        }
+
+        function loadSessionFromStorage() {
+            authUsername = localStorage.getItem(AUTH_USER_KEY) || '';
+            authToken = localStorage.getItem(AUTH_TOKEN_KEY) || '';
+            authExpiresAt = localStorage.getItem(AUTH_EXP_KEY) || '';
+        }
+
+        function applySessionUI() {
+            const loggedIn = !!authToken;
+            adminAppEl.classList.toggle('hidden', !loggedIn);
+            logoutBtn.classList.toggle('hidden', !loggedIn);
+            loginBtn.classList.toggle('hidden', loggedIn);
+            loginUser.disabled = loggedIn;
+            loginPass.disabled = loggedIn;
+
+            if (loggedIn) {
+                const expLabel = authExpiresAt ? new Date(authExpiresAt).toLocaleString('es-AR') : '-';
+                const userLabel = authUsername || 'admin';
+                sessionInfoEl.textContent = 'Sesion activa (' + userLabel + ') - vence: ' + expLabel;
+            } else {
+                sessionInfoEl.textContent = 'Sin sesion iniciada';
+                rowsEl.innerHTML = '<tr><td colspan="7">Inicia sesion para administrar.</td></tr>';
+            }
+        }
+
+        async function api(url, options = {}) {
+            const finalURL = /^https?:\/\//i.test(url) ? url : apiUrl(url);
+            const headers = { ...(options.headers || {}) };
+            if (options.body !== undefined && !headers['Content-Type']) {
+                headers['Content-Type'] = 'application/json';
+            }
+            if (authToken) {
+                headers.Authorization = 'Bearer ' + authToken;
+            }
+
+            const response = await fetch(finalURL, {
+                ...options,
+                headers,
+            });
+
+            if (response.status === 204) {
+                return null;
+            }
+
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                const message = data && data.error ? data.error : 'Error en la solicitud';
+                if (response.status === 401) {
+                    clearSession();
+                    showLoginMessage('Sesion expirada o token invalido. Inicia sesion de nuevo.', true);
+                }
+                throw new Error(message);
+            }
+            return data;
+        }
+
+        function escapeHtml(text) {
+            return String(text || '')
+                .replaceAll('&', '&amp;')
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;')
+                .replaceAll('"', '&quot;')
+                .replaceAll("'", '&#39;');
+        }
+
+        function resetForm() {
+            editingId = null;
+            fields.id.value = '';
+            fields.nombre.value = '';
+            fields.categoria.value = '';
+            fields.precio.value = '';
+            fields.foto.value = '';
+            fields.descripcion.value = '';
+            fields.esPromo.checked = false;
+
+            formTitleEl.textContent = 'Nueva comida';
+            submitBtn.textContent = 'Guardar comida';
+            cancelBtn.style.visibility = 'hidden';
+            showFormMessage('', false);
+        }
+
+        function loadInForm(meal) {
+            editingId = meal.id;
+            fields.id.value = meal.id;
+            fields.nombre.value = meal.nombre || '';
+            fields.categoria.value = meal.categoria || '';
+            fields.precio.value = meal.precio ?? '';
+            fields.foto.value = meal.foto || '';
+            fields.descripcion.value = meal.descripcion || '';
+            fields.esPromo.checked = !!meal.es_promo;
+
+            formTitleEl.textContent = 'Editando #' + meal.id;
+            submitBtn.textContent = 'Guardar cambios';
+            cancelBtn.style.visibility = 'visible';
+            showFormMessage('', false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function getPayloadFromForm() {
+            return {
+                nombre: fields.nombre.value.trim(),
+                categoria: fields.categoria.value.trim(),
+                precio: Number(fields.precio.value || 0),
+                foto: fields.foto.value.trim(),
+                descripcion: fields.descripcion.value.trim(),
+                es_promo: fields.esPromo.checked,
+            };
+        }
+
+        function renderRows() {
+            const term = searchEl.value.trim().toLowerCase();
+            const filtered = !term
+                ? allMeals
+                : allMeals.filter((meal) => {
+                    const text = [meal.nombre, meal.categoria, meal.descripcion].join(' ').toLowerCase();
+                    return text.includes(term);
+                });
+
+            if (filtered.length === 0) {
+                rowsEl.innerHTML = '<tr><td colspan="7">No hay comidas para mostrar.</td></tr>';
+                return;
+            }
+
+            rowsEl.innerHTML = filtered.map((meal) => {
+                const promoTag = meal.es_promo ? '<span class="tag">PROMO</span>' : '-';
+                const foto = meal.foto
+                    ? `<img class="thumb" src="${escapeHtml(meal.foto)}" alt="${escapeHtml(meal.nombre)}">`
+                    : '<div class="thumb"></div>';
+
+                return `
+                <tr>
+                    <td>${meal.id}</td>
+                    <td>${foto}</td>
+                    <td>
+                        <strong>${escapeHtml(meal.nombre)}</strong><br>
+                        <small>${escapeHtml(meal.descripcion || '')}</small>
+                    </td>
+                    <td>${escapeHtml(meal.categoria)}</td>
+                    <td>${fmtCurrency(meal.precio)}</td>
+                    <td>${promoTag}</td>
+                    <td>
+                        <div class="small-actions">
+                            <button class="btn-secondary" type="button" data-action="edit" data-id="${meal.id}">Editar</button>
+                            <button class="btn-primary" type="button" data-action="delete" data-id="${meal.id}">Eliminar</button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+            }).join('');
+        }
+
+        async function loadMeals() {
+            if (!authToken) return;
+            showListMessage('');
+            try {
+                allMeals = await api('/api/admin/comidas');
+                renderRows();
+            } catch (error) {
+                showListMessage(error.message);
+            }
+        }
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            showLoginMessage('', false);
+
+            const username = loginUser.value.trim();
+            const password = loginPass.value.trim();
+            if (!username || !password) {
+                showLoginMessage('Usuario y password son obligatorios.', true);
+                return;
+            }
+
+            try {
+                const response = await fetch(apiUrl('/api/admin/login'), {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password }),
+                });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(data && data.error ? data.error : 'No se pudo iniciar sesion');
+                }
+
+                setSession(username, data.token || '', data.expires_at || '');
+                showLoginMessage('Sesion iniciada correctamente.', false);
+                await loadMeals();
+            } catch (error) {
+                showLoginMessage(error.message, true);
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            clearSession();
+            resetForm();
+            allMeals = [];
+            showLoginMessage('Sesion cerrada.', false);
+        });
+
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            showFormMessage('', false);
+
+            if (!authToken) {
+                showFormMessage('Inicia sesion para guardar cambios.', true);
+                return;
+            }
+
+            const payload = getPayloadFromForm();
+            if (!payload.nombre || !payload.categoria) {
+                showFormMessage('Nombre y categoria son obligatorios.', true);
+                return;
+            }
+
+            try {
+                if (editingId) {
+                    await api('/api/admin/comidas/' + editingId, {
+                        method: 'PUT',
+                        body: JSON.stringify(payload),
+                    });
+                    showFormMessage('Comida editada correctamente.', false);
+                } else {
+                    await api('/api/admin/comidas', {
+                        method: 'POST',
+                        body: JSON.stringify(payload),
+                    });
+                    showFormMessage('Comida creada correctamente.', false);
+                }
+
+                resetForm();
+                await loadMeals();
+            } catch (error) {
+                showFormMessage(error.message, true);
+            }
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            resetForm();
+        });
+
+        searchEl.addEventListener('input', () => {
+            renderRows();
+        });
+
+        refreshBtn.addEventListener('click', () => {
+            loadMeals();
+        });
+
+        rowsEl.addEventListener('click', async (event) => {
+            const button = event.target.closest('button[data-action]');
+            if (!button) return;
+
+            const id = Number(button.dataset.id);
+            const action = button.dataset.action;
+            const meal = allMeals.find((m) => m.id === id);
+            if (!meal) return;
+
+            if (action === 'edit') {
+                loadInForm(meal);
+                return;
+            }
+
+            if (action === 'delete') {
+                const ok = window.confirm('Eliminar "' + meal.nombre + '"?');
+                if (!ok) return;
+                try {
+                    await api('/api/admin/comidas/' + id, { method: 'DELETE' });
+                    showFormMessage('Comida eliminada.', false);
+                    if (editingId === id) {
+                        resetForm();
+                    }
+                    await loadMeals();
+                } catch (error) {
+                    showListMessage(error.message);
+                }
+            }
+        });
+
+        resetForm();
+        loadSessionFromStorage();
+        applySessionUI();
+        if (authToken) {
+            showLoginMessage('Sesion restaurada.', false);
+            loadMeals();
+        }
+    </script>
+</body>
+
+</html>
