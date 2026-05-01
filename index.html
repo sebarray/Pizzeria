@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizzería Las Nenas</title>
+    <title>PizzerÃ­a Las Nenas</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Lato:wght@300;400;700&display=swap"
         rel="stylesheet">
@@ -44,7 +44,7 @@
             min-height: 100vh;
         }
 
-        /* ── HERO ── */
+        /* â”€â”€ HERO â”€â”€ */
         .hero {
             background: var(--dark);
             position: relative;
@@ -158,7 +158,7 @@
             }
         }
 
-        /* ── CART BUTTON FIXED ── */
+        /* â”€â”€ CART BUTTON FIXED â”€â”€ */
         .cart-fab {
             position: fixed;
             bottom: 28px;
@@ -204,14 +204,14 @@
             opacity: 0.85;
         }
 
-        /* ── MAIN LAYOUT ── */
+        /* â”€â”€ MAIN LAYOUT â”€â”€ */
         .main {
             max-width: 960px;
             margin: 0 auto;
             padding: 40px 24px 120px;
         }
 
-        /* ── SECTION ── */
+        /* â”€â”€ SECTION â”€â”€ */
         .menu-section {
             margin-bottom: 44px;
         }
@@ -247,7 +247,7 @@
             font-weight: 700;
         }
 
-        /* ── CARDS GRID ── */
+        /* â”€â”€ CARDS GRID â”€â”€ */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -294,17 +294,38 @@
             box-shadow: -2px 2px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .card-emoji-area {
-            height: 90px;
+        .card-media {
+            height: 150px;
             background: linear-gradient(135deg, #fde8e6 0%, #fef9f0 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
+            overflow: hidden;
+            position: relative;
         }
 
-        .card-promo .card-emoji-area {
+        .card-media-photo {
+            background: #efe8dd;
+        }
+
+        .card-photo {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .card-emoji {
+            font-size: 48px;
+            line-height: 1;
+        }
+
+        .card-promo .card-media {
             background: linear-gradient(135deg, #2c1a1a 0%, #1c1c1c 100%);
+        }
+
+        .card-promo .card-media-photo {
+            background: #1c1c1c;
         }
 
         .card-body {
@@ -401,7 +422,7 @@
             background: var(--gold-dark);
         }
 
-        /* ── CART DRAWER ── */
+        /* â”€â”€ CART DRAWER â”€â”€ */
         .drawer-overlay {
             display: none;
             position: fixed;
@@ -661,7 +682,7 @@
             color: var(--dark);
         }
 
-        /* ── CHECKOUT FORM ── */
+        /* â”€â”€ CHECKOUT FORM â”€â”€ */
         .checkout-view {
             display: none;
         }
@@ -820,7 +841,7 @@
             color: var(--dark);
         }
 
-        /* ── SUCCESS ── */
+        /* â”€â”€ SUCCESS â”€â”€ */
         .success-check {
             font-size: 72px;
             animation: popIn 0.4s;
@@ -891,7 +912,7 @@
             transform: scale(1.02);
         }
 
-        /* ── NAV PILLS ── */
+        /* â”€â”€ NAV PILLS â”€â”€ */
         .nav-pills {
             display: flex;
             gap: 8px;
@@ -925,7 +946,7 @@
             color: var(--red);
         }
 
-        /* ── FOOTER ── */
+        /* â”€â”€ FOOTER â”€â”€ */
         .site-footer {
             background: var(--dark);
             color: #888;
@@ -973,25 +994,25 @@
     <header class="hero">
         <div class="hero-inner">
             <div class="hero-text">
-                <div class="hero-badge">✦ Desde el barrio con amor ✦</div>
-                <h1 class="hero-title">Pizzería<br><span>Las Nenas</span></h1>
-                <p class="hero-sub">Pizzas artesanales · Delivery a domicilio</p>
+                <div class="hero-badge">âœ¦ Desde el barrio con amor âœ¦</div>
+                <h1 class="hero-title">PizzerÃ­a<br><span>Las Nenas</span></h1>
+                <p class="hero-sub">Pizzas artesanales Â· Delivery a domicilio</p>
                 <div class="hero-contacts">
                     <a class="contact-pill" href="tel:60696562">
-                        <span class="icon">📞</span> 6069-6562
+                        <span class="icon">ðŸ“ž</span> 6069-6562
                     </a>
                     <a class="contact-pill" href="tel:1126390108">
-                        <span class="icon">📱</span> 1126390108
+                        <span class="icon">ðŸ“±</span> 1126390108
                     </a>
                 </div>
             </div>
-            <div class="hero-pizza">🍕</div>
+            <div class="hero-pizza">ðŸ•</div>
         </div>
     </header>
 
     <!-- CART FAB -->
     <button class="cart-fab" onclick="openDrawer('cart')">
-        🛒
+        ðŸ›’
         <span class="fab-badge" id="fab-count">0</span>
         <span id="fab-label">Mi pedido</span>
         <span class="fab-total" id="fab-total" style="display:none"></span>
@@ -1002,24 +1023,24 @@
 
         <!-- NAV PILLS -->
         <nav class="nav-pills">
-            <a class="nav-pill" href="#promo">🔥 Promociones</a>
-            <a class="nav-pill" href="#pizzas">🍕 Pizzas</a>
-            <a class="nav-pill" href="#empanadas">🥟 Empanadas</a>
-            <a class="nav-pill" href="#pollo">🍗 Pollo</a>
-            <a class="nav-pill" href="#papas">🍟 Papas Fritas</a>
-            <a class="nav-pill" href="#hamburguesas">🍔 Hamburguesas</a>
-            <a class="nav-pill" href="#tartas">🥧 Tartas</a>
-            <a class="nav-pill" href="#tortillas">🍳 Tortillas</a>
-            <a class="nav-pill" href="#milanesas">🥩 Milanesas</a>
-            <a class="nav-pill" href="#canelones">🍝 Canelones</a>
-            <a class="nav-pill" href="#postres">🍮 Postres</a>
-            <a class="nav-pill" href="#bebidas">🥤 Bebidas</a>
+            <a class="nav-pill" href="#promo">ðŸ”¥ Promociones</a>
+            <a class="nav-pill" href="#pizzas">ðŸ• Pizzas</a>
+            <a class="nav-pill" href="#empanadas">ðŸ¥Ÿ Empanadas</a>
+            <a class="nav-pill" href="#pollo">ðŸ— Pollo</a>
+            <a class="nav-pill" href="#papas">ðŸŸ Papas Fritas</a>
+            <a class="nav-pill" href="#hamburguesas">ðŸ” Hamburguesas</a>
+            <a class="nav-pill" href="#tartas">ðŸ¥§ Tartas</a>
+            <a class="nav-pill" href="#tortillas">ðŸ³ Tortillas</a>
+            <a class="nav-pill" href="#milanesas">ðŸ¥© Milanesas</a>
+            <a class="nav-pill" href="#canelones">ðŸ Canelones</a>
+            <a class="nav-pill" href="#postres">ðŸ® Postres</a>
+            <a class="nav-pill" href="#bebidas">ðŸ¥¤ Bebidas</a>
         </nav>
 
         <!-- PROMOCIONES -->
         <section class="menu-section" id="promo">
             <div class="section-header">
-                <span class="section-icon">🔥</span>
+                <span class="section-icon">ðŸ”¥</span>
                 <span class="section-name">Promociones</span>
                 <span class="section-count">3 combos</span>
             </div>
@@ -1029,8 +1050,8 @@
         <!-- PIZZAS -->
         <section class="menu-section" id="pizzas">
             <div class="section-header">
-                <span class="section-icon">🍕</span>
-                <span class="section-name">Pizzas y Faína</span>
+                <span class="section-icon">ðŸ•</span>
+                <span class="section-name">Pizzas y FaÃ­na</span>
                 <span class="section-count">3 opciones</span>
             </div>
             <div class="cards-grid" id="grid-pizzas"></div>
@@ -1039,7 +1060,7 @@
         <!-- EMPANADAS -->
         <section class="menu-section" id="empanadas">
             <div class="section-header">
-                <span class="section-icon">🥟</span>
+                <span class="section-icon">ðŸ¥Ÿ</span>
                 <span class="section-name">Empanadas</span>
                 <span class="section-count">3 sabores</span>
             </div>
@@ -1049,7 +1070,7 @@
         <!-- POLLO -->
         <section class="menu-section" id="pollo">
             <div class="section-header">
-                <span class="section-icon">🍗</span>
+                <span class="section-icon">ðŸ—</span>
                 <span class="section-name">Pollo con Fritas</span>
                 <span class="section-count">3 opciones</span>
             </div>
@@ -1059,9 +1080,9 @@
         <!-- PAPAS -->
         <section class="menu-section" id="papas">
             <div class="section-header">
-                <span class="section-icon">🍟</span>
+                <span class="section-icon">ðŸŸ</span>
                 <span class="section-name">Papas Fritas</span>
-                <span class="section-count">3 tamaños</span>
+                <span class="section-count">3 tamaÃ±os</span>
             </div>
             <div class="cards-grid" id="grid-papas"></div>
         </section>
@@ -1069,7 +1090,7 @@
         <!-- HAMBURGUESAS -->
         <section class="menu-section" id="hamburguesas">
             <div class="section-header">
-                <span class="section-icon">🍔</span>
+                <span class="section-icon">ðŸ”</span>
                 <span class="section-name">Hamburguesas</span>
                 <span class="section-count">3 opciones</span>
             </div>
@@ -1079,7 +1100,7 @@
         <!-- TARTAS -->
         <section class="menu-section" id="tartas">
             <div class="section-header">
-                <span class="section-icon">🥧</span>
+                <span class="section-icon">ðŸ¥§</span>
                 <span class="section-name">Tartas</span>
                 <span class="section-count">3 variedades</span>
             </div>
@@ -1089,7 +1110,7 @@
         <!-- TORTILLAS -->
         <section class="menu-section" id="tortillas">
             <div class="section-header">
-                <span class="section-icon">🍳</span>
+                <span class="section-icon">ðŸ³</span>
                 <span class="section-name">Tortillas</span>
                 <span class="section-count">3 variedades</span>
             </div>
@@ -1099,7 +1120,7 @@
         <!-- MILANESAS -->
         <section class="menu-section" id="milanesas">
             <div class="section-header">
-                <span class="section-icon">🥩</span>
+                <span class="section-icon">ðŸ¥©</span>
                 <span class="section-name">Milanesas</span>
                 <span class="section-count">4 opciones</span>
             </div>
@@ -1109,7 +1130,7 @@
         <!-- CANELONES -->
         <section class="menu-section" id="canelones">
             <div class="section-header">
-                <span class="section-icon">🍝</span>
+                <span class="section-icon">ðŸ</span>
                 <span class="section-name">Canelones</span>
                 <span class="section-count">2 variedades</span>
             </div>
@@ -1119,7 +1140,7 @@
         <!-- POSTRES -->
         <section class="menu-section" id="postres">
             <div class="section-header">
-                <span class="section-icon">🍮</span>
+                <span class="section-icon">ðŸ®</span>
                 <span class="section-name">Postres</span>
                 <span class="section-count">3 opciones</span>
             </div>
@@ -1129,7 +1150,7 @@
         <!-- BEBIDAS -->
         <section class="menu-section" id="bebidas">
             <div class="section-header">
-                <span class="section-icon">🥤</span>
+                <span class="section-icon">ðŸ¥¤</span>
                 <span class="section-name">Bebidas</span>
                 <span class="section-count">12 opciones</span>
             </div>
@@ -1139,7 +1160,7 @@
     </main>
 
     <footer class="site-footer">
-        <strong>Pizzería Las Nenas</strong> &nbsp;·&nbsp; Tel: 6069-6562 &nbsp;·&nbsp; Cel: 1126390108
+        <strong>PizzerÃ­a Las Nenas</strong> &nbsp;Â·&nbsp; Tel: 6069-6562 &nbsp;Â·&nbsp; Cel: 1126390108
     </footer>
 
     <!-- DRAWER OVERLAY -->
@@ -1148,8 +1169,8 @@
     <!-- DRAWER -->
     <div class="drawer" id="drawer">
         <div class="drawer-header">
-            <h2 id="drawer-title">🛒 Tu Pedido</h2>
-            <button class="drawer-close" onclick="closeDrawer()">✕</button>
+            <h2 id="drawer-title">ðŸ›’ Tu Pedido</h2>
+            <button class="drawer-close" onclick="closeDrawer()">âœ•</button>
         </div>
 
         <div class="drawer-body" id="drawer-body">
@@ -1161,7 +1182,7 @@
 
             <!-- VISTA CHECKOUT -->
             <div class="checkout-view" id="view-checkout">
-                <button class="back-link" onclick="showCart()">← Volver al carrito</button>
+                <button class="back-link" onclick="showCart()">â† Volver al carrito</button>
                 <div class="steps">
                     <div class="step-dot on"></div>
                     <div class="step-dot"></div>
@@ -1170,11 +1191,11 @@
 
                 <div class="form-group">
                     <label class="form-label">Tu nombre completo</label>
-                    <input class="form-input" id="f-nombre" type="text" placeholder="Ej: María García">
+                    <input class="form-input" id="f-nombre" type="text" placeholder="Ej: MarÃ­a GarcÃ­a">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Dirección de entrega</label>
-                    <input class="form-input" id="f-dir" type="text" placeholder="Calle, número, piso, depto...">
+                    <label class="form-label">DirecciÃ³n de entrega</label>
+                    <input class="form-input" id="f-dir" type="text" placeholder="Calle, nÃºmero, piso, depto...">
                 </div>
                 <div class="form-group">
                     <label class="form-label">Entre calles <span
@@ -1182,20 +1203,20 @@
                     <input class="form-input" id="f-calles" type="text" placeholder="Ej: entre Mitre y Belgrano">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Método de pago</label>
+                    <label class="form-label">MÃ©todo de pago</label>
                     <div class="pago-grid">
                         <div class="pago-opt" id="opt-efectivo" onclick="selectPago('efectivo')">
-                            <div class="pago-icon">💵</div>
+                            <div class="pago-icon">ðŸ’µ</div>
                             <div class="pago-name">Efectivo</div>
                         </div>
                         <div class="pago-opt" id="opt-transferencia" onclick="selectPago('transferencia')">
-                            <div class="pago-icon">🏦</div>
+                            <div class="pago-icon">ðŸ¦</div>
                             <div class="pago-name">Transferencia</div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group" id="group-monto" style="display:none">
-                    <label class="form-label">¿Con cuánto pagás? <span
+                    <label class="form-label">Â¿Con cuÃ¡nto pagÃ¡s? <span
                             style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">(para
                             el vuelto)</span></label>
                     <input class="form-input" id="f-monto" type="number" placeholder="Ej: 50000" min="0"
@@ -1205,15 +1226,15 @@
 
             <!-- VISTA SUCCESS -->
             <div class="success-view" id="view-success">
-                <div class="success-check">✅</div>
-                <h3>¡Pedido enviado!</h3>
+                <div class="success-check">âœ…</div>
+                <h3>Â¡Pedido enviado!</h3>
                 <p>Gracias, <strong id="s-nombre"></strong>.</p>
                 <p>Entregamos en:<br><strong id="s-dir"></strong></p>
                 <p>Pago: <strong id="s-pago"></strong></p>
                 <div class="success-tel" id="s-total-box"></div>
-                <p style="margin-top:14px;font-size:13px;">Te redirigimos a WhatsApp con tu pedido completo 📲</p>
+                <p style="margin-top:14px;font-size:13px;">Te redirigimos a WhatsApp con tu pedido completo ðŸ“²</p>
                 <button class="btn-wa" id="btn-wa-resend" onclick="resendWA()">
-                    📲 Abrir WhatsApp
+                    ðŸ“² Abrir WhatsApp
                 </button>
             </div>
 
@@ -1221,7 +1242,7 @@
 
         <!-- FOOTER DRAWER -->
         <div class="drawer-footer" id="drawer-footer">
-            <!-- se rellena dinámicamente -->
+            <!-- se rellena dinÃ¡micamente -->
         </div>
     </div>
 
@@ -1235,6 +1256,37 @@
             return API_BASE_URL ? API_BASE_URL + path : path;
         }
 
+        const QUICK_RETRY_DELAY_MS = 450;
+        const QUICK_RETRY_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
+
+        function sleep(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        }
+
+        async function fetchWithQuickRetry(url, options = {}) {
+            let lastError = null;
+            for (let attempt = 0; attempt < 2; attempt++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (attempt === 0 && QUICK_RETRY_STATUS.has(response.status)) {
+                        await sleep(QUICK_RETRY_DELAY_MS);
+                        continue;
+                    }
+                    return response;
+                } catch (error) {
+                    lastError = error;
+                    if (attempt === 0) {
+                        await sleep(QUICK_RETRY_DELAY_MS);
+                        continue;
+                    }
+                    throw error;
+                }
+            }
+
+            if (lastError) throw lastError;
+            throw new Error('No se pudo completar la solicitud');
+        }
+
         const categoryOrder = [
             'promo', 'pizzas', 'empanadas', 'pollo', 'papas', 'hamburguesas',
             'tartas', 'tortillas', 'milanesas', 'canelones', 'postres', 'bebidas'
@@ -1243,9 +1295,18 @@
         let menuData = {};
 
         const sectionEmojis = {
-            promo: '🔥', pizzas: '🍕', empanadas: '🥟', pollo: '🍗',
-            papas: '🍟', hamburguesas: '🍔', tartas: '🥧', tortillas: '🍳', milanesas: '🥩',
-            canelones: '🍝', postres: '🍮', bebidas: '🥤'
+            promo: '\uD83D\uDD25',
+            pizzas: '\uD83C\uDF55',
+            empanadas: '\uD83E\uDD5F',
+            pollo: '\uD83C\uDF57',
+            papas: '\uD83C\uDF5F',
+            hamburguesas: '\uD83C\uDF54',
+            tartas: '\uD83E\uDD67',
+            tortillas: '\uD83C\uDF73',
+            milanesas: '\uD83E\uDD69',
+            canelones: '\uD83C\uDF5D',
+            postres: '\uD83C\uDF6E',
+            bebidas: '\uD83E\uDD64'
         };
 
         let cart = [];
@@ -1266,8 +1327,27 @@
                 .replaceAll("'", '&#39;');
         }
 
+        function resolvePhotoUrl(url) {
+            const raw = String(url || '').trim();
+            if (!raw) return '';
+
+            if (/^(https?:)?\/\//i.test(raw)) {
+                return raw.startsWith('//') ? window.location.protocol + raw : raw;
+            }
+
+            if (raw.startsWith('data:') || raw.startsWith('blob:')) {
+                return raw;
+            }
+
+            if (raw.startsWith('/')) {
+                return API_BASE_URL ? API_BASE_URL + raw : raw;
+            }
+
+            return raw;
+        }
+
         async function loadMenuData() {
-            const response = await fetch(apiUrl('/api/comidas/grouped'), { cache: 'no-store' });
+            const response = await fetchWithQuickRetry(apiUrl('/api/comidas/grouped'), { cache: 'no-store' });
             if (!response.ok) {
                 throw new Error('No se pudo cargar el menu desde la API');
             }
@@ -1317,10 +1397,15 @@
                 grid.innerHTML = items.map((item, i) => {
                     const itemId = item.id != null ? item.id : i + 1;
                     const isPromo = !!item.es_promo;
+                    const photoUrl = resolvePhotoUrl(item.foto);
+                    const mediaHtml = photoUrl
+                        ? `<img class="card-photo" src="${escapeHtml(photoUrl)}" alt="${escapeHtml(item.nombre || 'Producto')}" loading="lazy">`
+                        : `<span class="card-emoji">${sectionEmojis[key] || '\uD83C\uDF7D\uFE0F'}</span>`;
+
                     return `
       <div class="card ${isPromo ? 'card-promo' : ''}">
         ${isPromo ? '<div class="promo-ribbon">PROMO</div>' : ''}
-        <div class="card-emoji-area">${sectionEmojis[key] || '🍽️'}</div>
+        <div class="card-media ${photoUrl ? 'card-media-photo' : ''}">${mediaHtml}</div>
         <div class="card-body">
           <div class="card-name">${escapeHtml(item.nombre || '')}</div>
           <div class="card-desc">${escapeHtml(item.descripcion || '') || '&nbsp;'}</div>
@@ -1332,6 +1417,15 @@
       </div>
     `;
                 }).join('');
+
+                grid.querySelectorAll('.card-photo').forEach((img) => {
+                    img.addEventListener('error', () => {
+                        const mediaEl = img.closest('.card-media');
+                        if (!mediaEl) return;
+                        mediaEl.classList.remove('card-media-photo');
+                        mediaEl.innerHTML = `<span class="card-emoji">${sectionEmojis[key] || '\uD83C\uDF7D\uFE0F'}</span>`;
+                    }, { once: true });
+                });
             });
         }
 
@@ -1416,7 +1510,7 @@
             vsuccess.className = 'success-view';
 
             if (currentDrawerView === 'cart') {
-                title.textContent = '🛒 Tu Pedido';
+                title.textContent = 'ðŸ›’ Tu Pedido';
                 vcart.className = 'cart-view';
                 renderCartItems();
                 if (cart.length === 0) {
@@ -1428,22 +1522,22 @@
           <div class="total-row"><span>Subtotal (${cart.reduce((a, c) => a + c.qty, 0)} items)</span><span>${fmt(total)}</span></div>
           <div class="total-final"><span>Total</span><span class="amount">${fmt(total)}</span></div>
         </div>
-        <button class="btn-primary" onclick="goCheckout()">Confirmar pedido →</button>
+        <button class="btn-primary" onclick="goCheckout()">Confirmar pedido â†’</button>
       `;
                 }
             } else if (currentDrawerView === 'checkout') {
-                title.textContent = '📋 Datos del pedido';
+                title.textContent = 'ðŸ“‹ Datos del pedido';
                 vcheck.className = 'checkout-view active';
                 const total = cart.reduce((a, c) => a + (c.price * c.qty), 0);
                 document.getElementById('order-mini').innerHTML =
-                    '<strong>Resumen:</strong> ' + cart.map(c => c.qty + '× ' + c.name).join(', ') +
-                    ' — <strong>' + fmt(total) + '</strong>';
+                    '<strong>Resumen:</strong> ' + cart.map(c => c.qty + 'Ã— ' + c.name).join(', ') +
+                    ' â€” <strong>' + fmt(total) + '</strong>';
                 footer.innerHTML = `
-      <button class="btn-primary" onclick="sendOrder()">Enviar pedido 🙌</button>
-      <button class="btn-secondary" onclick="showCart()">← Volver al carrito</button>
+      <button class="btn-primary" onclick="sendOrder()">Enviar pedido ðŸ™Œ</button>
+      <button class="btn-secondary" onclick="showCart()">â† Volver al carrito</button>
     `;
             } else if (currentDrawerView === 'success') {
-                title.textContent = '✅ ¡Listo!';
+                title.textContent = 'âœ… Â¡Listo!';
                 vsuccess.className = 'success-view active';
                 footer.innerHTML = `
       <button class="btn-primary" onclick="resetAll()">Hacer otro pedido</button>
@@ -1456,8 +1550,8 @@
             if (cart.length === 0) {
                 el.innerHTML = `
       <div class="empty-state">
-        <div class="empty-icon">🛒</div>
-        <p>Tu carrito está vacío.<br>¡Elegí algo del menú!</p>
+        <div class="empty-icon">ðŸ›’</div>
+        <p>Tu carrito estÃ¡ vacÃ­o.<br>Â¡ElegÃ­ algo del menÃº!</p>
       </div>`;
                 return;
             }
@@ -1468,7 +1562,7 @@
         <div class="ci-unit">${fmt(item.price)} c/u</div>
       </div>
       <div class="ci-controls">
-        <button class="ci-btn" onclick="changeQty(${i},-1)">−</button>
+        <button class="ci-btn" onclick="changeQty(${i},-1)">âˆ’</button>
         <span class="ci-qty">${item.qty}</span>
         <button class="ci-btn" onclick="changeQty(${i},1)">+</button>
       </div>
@@ -1505,30 +1599,30 @@
             const dir = document.getElementById('f-dir').value.trim();
             const calles = document.getElementById('f-calles').value.trim();
             const montoRaw = document.getElementById('f-monto') ? document.getElementById('f-monto').value.trim() : '';
-            if (!nombre) { alert('Por favor ingresá tu nombre 😊'); return; }
-            if (!dir) { alert('Por favor ingresá tu dirección de entrega 📍'); return; }
-            if (!pagoSel) { alert('Por favor elegí un método de pago 💳'); return; }
+            if (!nombre) { alert('Por favor ingresÃ¡ tu nombre ðŸ˜Š'); return; }
+            if (!dir) { alert('Por favor ingresÃ¡ tu direcciÃ³n de entrega ðŸ“'); return; }
+            if (!pagoSel) { alert('Por favor elegÃ­ un mÃ©todo de pago ðŸ’³'); return; }
 
             const total = cart.reduce((a, c) => a + (c.price * c.qty), 0);
             const pagoLabel = pagoSel === 'transferencia' ? 'Transferencia bancaria' : 'Efectivo';
-            const montoPago = pagoSel === 'efectivo' && montoRaw ? '\n💵 *Abona con:* ARS ' + parseInt(montoRaw).toLocaleString('es-AR') + ',00' : '';
-            const entreCalles = calles ? '\n↔️ *Entre calles:* ' + calles : '';
+            const montoPago = pagoSel === 'efectivo' && montoRaw ? '\nðŸ’µ *Abona con:* ARS ' + parseInt(montoRaw).toLocaleString('es-AR') + ',00' : '';
+            const entreCalles = calles ? '\nâ†”ï¸ *Entre calles:* ' + calles : '';
 
             // Armamos el mensaje de WhatsApp
-            const lineas = cart.map(c => `  • ${c.qty}x ${c.name} — ${fmt(c.price * c.qty)}`).join('\n');
+            const lineas = cart.map(c => `  â€¢ ${c.qty}x ${c.name} â€” ${fmt(c.price * c.qty)}`).join('\n');
             const msg =
-                `🍕 *NUEVO PEDIDO - Pizzería Las Nenas*
+                `ðŸ• *NUEVO PEDIDO - PizzerÃ­a Las Nenas*
 
-👤 *Cliente:* ${nombre}
-📍 *Dirección:* ${dir}${entreCalles}
-💳 *Pago:* ${pagoLabel}${montoPago}
+ðŸ‘¤ *Cliente:* ${nombre}
+ðŸ“ *DirecciÃ³n:* ${dir}${entreCalles}
+ðŸ’³ *Pago:* ${pagoLabel}${montoPago}
 
-📋 *Detalle del pedido:*
+ðŸ“‹ *Detalle del pedido:*
 ${lineas}
 
-💰 *TOTAL: ${fmt(total)}*
+ðŸ’° *TOTAL: ${fmt(total)}*
 
-_Pedido enviado desde el catálogo online_`;
+_Pedido enviado desde el catÃ¡logo online_`;
 
             // Guardamos datos para la vista success
             window._lastOrder = { nombre, dir, pagoLabel, total, msg };
@@ -1544,7 +1638,7 @@ _Pedido enviado desde el catálogo online_`;
             updateFAB();
             renderDrawer();
 
-            // Abrimos WhatsApp con el mensaje (número: 1126390108)
+            // Abrimos WhatsApp con el mensaje (nÃºmero: 1126390108)
             const waUrl = 'https://wa.me/541126390108?text=' + encodeURIComponent(msg);
             setTimeout(() => { window.open(waUrl, '_blank'); }, 600);
         }

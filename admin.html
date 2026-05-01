@@ -5,17 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin de Comidas - Pizzeria Las Nenas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Manrope:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --bg: #f6f2ea;
+            --bg: #f5efe2;
+            --bg-soft: #fbf6ee;
             --card: #ffffff;
-            --ink: #1f2937;
-            --muted: #6b7280;
-            --brand: #c0392b;
-            --brand-dark: #922b21;
-            --line: #e5e7eb;
+            --ink: #1f2333;
+            --muted: #6a7287;
+            --brand: #bb2f1f;
+            --brand-dark: #8f2115;
+            --brand-soft: #fce7e3;
+            --line: #e4ddcf;
+            --line-soft: #f0ebdf;
             --ok: #166534;
             --err: #991b1b;
+            --shadow: 0 14px 34px rgba(30, 18, 11, 0.08);
+            --shadow-soft: 0 8px 20px rgba(30, 18, 11, 0.05);
+            --radius: 16px;
         }
 
         * {
@@ -24,15 +35,18 @@
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: radial-gradient(circle at 10% 10%, #fff8ef, var(--bg));
+            font-family: 'Manrope', sans-serif;
+            background:
+                radial-gradient(circle at 6% 8%, #fff9ee 0%, transparent 44%),
+                radial-gradient(circle at 92% 0%, #ffe9cf 0%, transparent 28%),
+                linear-gradient(180deg, #fcf7ee 0%, var(--bg) 100%);
             color: var(--ink);
         }
 
         .wrap {
-            max-width: 1200px;
+            max-width: 1260px;
             margin: 0 auto;
-            padding: 28px 18px 40px;
+            padding: 30px 22px 46px;
         }
 
         .top {
@@ -40,51 +54,76 @@
             justify-content: space-between;
             align-items: center;
             gap: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
+            background: linear-gradient(110deg, #24201e 0%, #3b2c25 56%, #5e3d31 100%);
+            border-radius: 20px;
+            padding: 20px 22px;
+            box-shadow: var(--shadow);
         }
 
         h1 {
             margin: 0;
-            font-size: 28px;
+            font-family: 'Fraunces', serif;
+            font-size: 34px;
+            letter-spacing: 0.2px;
+            color: #fff8ee;
         }
 
         .top p {
             margin: 6px 0 0;
-            color: var(--muted);
+            color: #f5d9c8;
+            font-size: 14px;
         }
 
         .btn-link {
             color: white;
             text-decoration: none;
-            background: var(--brand);
-            border: 0;
-            padding: 10px 16px;
-            border-radius: 10px;
+            background: linear-gradient(180deg, #ca3b2a 0%, #a42e21 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 11px 16px;
+            border-radius: 999px;
             font-weight: 700;
             display: inline-block;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            transition: transform 0.2s ease, background 0.2s ease;
         }
 
         .btn-link:hover {
             background: var(--brand-dark);
+            transform: translateY(-1px);
         }
 
         .grid {
             display: grid;
             grid-template-columns: 360px 1fr;
-            gap: 20px;
+            gap: 22px;
+        }
+
+        .stack {
+            display: grid;
+            gap: 18px;
         }
 
         .card {
             background: var(--card);
             border: 1px solid var(--line);
-            border-radius: 14px;
-            padding: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            border-radius: var(--radius);
+            padding: 18px;
+            box-shadow: var(--shadow-soft);
         }
 
         h2 {
             margin: 0 0 14px;
-            font-size: 20px;
+            font-family: 'Fraunces', serif;
+            font-size: 23px;
+            letter-spacing: 0.1px;
+            color: #271d1a;
+        }
+
+        .card-subtitle {
+            margin: -6px 0 12px;
+            font-size: 13px;
+            color: var(--muted);
         }
 
         .field {
@@ -94,21 +133,33 @@
         .field label {
             display: block;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 800;
             text-transform: uppercase;
             color: var(--muted);
-            margin-bottom: 6px;
+            margin-bottom: 7px;
+            letter-spacing: 0.5px;
         }
 
         .field input,
         .field textarea {
             width: 100%;
-            border: 1px solid var(--line);
-            border-radius: 10px;
-            padding: 10px 12px;
+            border: 1px solid #ddd3c3;
+            border-radius: 12px;
+            padding: 11px 12px;
             font-size: 14px;
             outline: none;
             font-family: inherit;
+            background: #fffcf7;
+            color: var(--ink);
+            transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .field input:focus,
+        .field textarea:focus,
+        .toolbar input:focus {
+            border-color: #c98d72;
+            box-shadow: 0 0 0 3px rgba(201, 141, 114, 0.22);
+            background: #ffffff;
         }
 
         .field textarea {
@@ -138,14 +189,27 @@
         button {
             border: 0;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 11px 14px;
             font-weight: 700;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            filter: brightness(0.99);
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .btn-primary {
-            background: var(--brand);
+            background: linear-gradient(180deg, #c53d2a 0%, #9f2c1f 100%);
             color: white;
+            box-shadow: 0 8px 16px rgba(159, 44, 31, 0.22);
         }
 
         .btn-primary:hover {
@@ -153,8 +217,9 @@
         }
 
         .btn-secondary {
-            background: #f3f4f6;
-            color: #111827;
+            background: #f8f3ea;
+            color: #362a24;
+            border: 1px solid #e8ddca;
         }
 
         .toolbar {
@@ -168,9 +233,11 @@
         .toolbar input {
             flex: 1;
             min-width: 220px;
-            border: 1px solid var(--line);
-            border-radius: 10px;
+            border: 1px solid #ddd3c3;
+            border-radius: 12px;
             padding: 10px 12px;
+            background: #fffcf7;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
 
         table {
@@ -195,7 +262,7 @@
         }
 
         tbody tr:hover {
-            background: #f9fafb;
+            background: #fdf8ee;
         }
 
         .thumb {
@@ -250,6 +317,7 @@
 
         .login-card {
             margin-bottom: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #fffaf0 100%);
         }
 
         .login-row {
@@ -270,15 +338,69 @@
 
         .session-pill {
             font-size: 12px;
-            border: 1px solid var(--line);
-            background: #f9fafb;
+            border: 1px solid #e7dbc9;
+            background: #fff8ec;
             color: #111827;
             border-radius: 999px;
             padding: 6px 10px;
         }
 
+        .danger-zone {
+            border: 1px solid #f0d8d2;
+            border-radius: 14px;
+            background: linear-gradient(180deg, #fff8f5 0%, #fff5f0 100%);
+            padding: 14px;
+        }
+
+        .danger-title {
+            margin: 0 0 6px;
+            font-size: 14px;
+            font-weight: 800;
+            color: #8f2115;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .danger-text {
+            margin: 0 0 12px;
+            font-size: 13px;
+            color: #6f453d;
+        }
+
+        .password-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .meta-kpis {
+            margin-top: 10px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .kpi-pill {
+            border: 1px solid var(--line-soft);
+            background: #fff;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-size: 12px;
+            color: #4a3f37;
+            font-weight: 700;
+        }
+
         @media (max-width: 980px) {
+            .top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
             .login-row {
+                grid-template-columns: 1fr;
+            }
+
+            .password-row {
                 grid-template-columns: 1fr;
             }
 
@@ -301,6 +423,7 @@
 
         <section class="card login-card">
             <h2>Login Admin</h2>
+            <p class="card-subtitle">Gestiona el menu, imagenes y promociones desde un solo panel.</p>
             <form id="login-form">
                 <div class="login-row">
                     <div class="field">
@@ -309,7 +432,7 @@
                     </div>
                     <div class="field">
                         <label for="login-pass">Password</label>
-                        <input id="login-pass" type="password" placeholder="••••••••" required>
+                        <input id="login-pass" type="password" placeholder="********" required>
                     </div>
                     <button class="btn-primary" type="submit" id="login-btn">Iniciar sesion</button>
                     <button class="btn-secondary hidden" type="button" id="logout-btn">Cerrar sesion</button>
@@ -322,52 +445,90 @@
         </section>
 
         <div class="grid hidden" id="admin-app">
-            <section class="card">
-                <h2 id="form-title">Nueva comida</h2>
-                <form id="meal-form">
-                    <input type="hidden" id="meal-id">
+            <div class="stack">
+                <section class="card">
+                    <h2 id="form-title">Nueva comida</h2>
+                    <p class="card-subtitle">Carga productos con precio, categoria, descripcion e imagen.</p>
+                    <form id="meal-form">
+                        <input type="hidden" id="meal-id">
 
-                    <div class="field">
-                        <label for="nombre">Nombre</label>
-                        <input id="nombre" type="text" required>
-                    </div>
-
-                    <div class="row">
                         <div class="field">
-                            <label for="categoria">Categoria</label>
-                            <input id="categoria" type="text" placeholder="ej: pizzas" required>
+                            <label for="nombre">Nombre</label>
+                            <input id="nombre" type="text" required>
                         </div>
+
+                        <div class="row">
+                            <div class="field">
+                                <label for="categoria">Categoria</label>
+                                <input id="categoria" type="text" placeholder="ej: pizzas" required>
+                            </div>
+                            <div class="field">
+                                <label for="precio">Precio (ARS)</label>
+                                <input id="precio" type="number" min="0" step="1" required>
+                            </div>
+                        </div>
+
                         <div class="field">
-                            <label for="precio">Precio (ARS)</label>
-                            <input id="precio" type="number" min="0" step="1" required>
+                            <label for="foto">URL de foto</label>
+                            <input id="foto" type="url" placeholder="https://...">
                         </div>
+
+                        <div class="field">
+                            <label for="descripcion">Descripcion</label>
+                            <textarea id="descripcion" placeholder="Detalle del producto"></textarea>
+                        </div>
+
+                        <label class="check">
+                            <input id="es_promo" type="checkbox">
+                            Es promocion
+                        </label>
+
+                        <div class="actions">
+                            <button class="btn-primary" type="submit" id="submit-btn">Guardar comida</button>
+                            <button class="btn-secondary" type="button" id="cancel-btn">Cancelar edicion</button>
+                        </div>
+
+                        <div id="form-msg" class="ok"></div>
+                    </form>
+                </section>
+
+                <section class="card">
+                    <h2>Seguridad</h2>
+                    <p class="card-subtitle">Actualiza la contrasenia del usuario admin.</p>
+                    <div class="danger-zone">
+                        <p class="danger-title">Cambio de contrasenia</p>
+                        <p class="danger-text">Vas a necesitar la contrasenia actual para confirmar el cambio.</p>
+                        <form id="password-form">
+                            <div class="field">
+                                <label for="pwd-current">Contrasenia actual</label>
+                                <input id="pwd-current" type="password" autocomplete="current-password" required>
+                            </div>
+                            <div class="password-row">
+                                <div class="field">
+                                    <label for="pwd-new">Nueva contrasenia</label>
+                                    <input id="pwd-new" type="password" minlength="8" autocomplete="new-password" required>
+                                </div>
+                                <div class="field">
+                                    <label for="pwd-confirm">Repetir nueva contrasenia</label>
+                                    <input id="pwd-confirm" type="password" minlength="8" autocomplete="new-password" required>
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <button class="btn-primary" type="submit" id="pwd-submit-btn">Actualizar contrasenia</button>
+                            </div>
+                            <div id="pwd-msg" class="err"></div>
+                        </form>
                     </div>
-
-                    <div class="field">
-                        <label for="foto">URL de foto</label>
-                        <input id="foto" type="url" placeholder="https://...">
-                    </div>
-
-                    <div class="field">
-                        <label for="descripcion">Descripcion</label>
-                        <textarea id="descripcion" placeholder="Detalle del producto"></textarea>
-                    </div>
-
-                    <label class="check">
-                        <input id="es_promo" type="checkbox">
-                        Es promocion
-                    </label>
-
-                    <div class="actions">
-                        <button class="btn-primary" type="submit" id="submit-btn">Guardar comida</button>
-                        <button class="btn-secondary" type="button" id="cancel-btn">Cancelar edicion</button>
-                    </div>
-
-                    <div id="form-msg" class="ok"></div>
-                </form>
-            </section>
+                </section>
+            </div>
 
             <section class="card">
+                <h2>Listado de comidas</h2>
+                <p class="card-subtitle">Busca, edita o elimina items del menu actual.</p>
+                <div class="meta-kpis">
+                    <span class="kpi-pill" id="kpi-total">Total: 0</span>
+                    <span class="kpi-pill" id="kpi-promos">Promos: 0</span>
+                </div>
                 <div class="toolbar">
                     <input id="search" type="text" placeholder="Buscar por nombre, categoria o descripcion">
                     <button class="btn-secondary" id="refresh-btn" type="button">Recargar</button>
@@ -403,6 +564,37 @@
             return API_BASE_URL ? API_BASE_URL + path : path;
         }
 
+        const QUICK_RETRY_DELAY_MS = 450;
+        const QUICK_RETRY_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
+
+        function sleep(ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        }
+
+        async function fetchWithQuickRetry(url, options = {}) {
+            let lastError = null;
+            for (let attempt = 0; attempt < 2; attempt++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (attempt === 0 && QUICK_RETRY_STATUS.has(response.status)) {
+                        await sleep(QUICK_RETRY_DELAY_MS);
+                        continue;
+                    }
+                    return response;
+                } catch (error) {
+                    lastError = error;
+                    if (attempt === 0) {
+                        await sleep(QUICK_RETRY_DELAY_MS);
+                        continue;
+                    }
+                    throw error;
+                }
+            }
+
+            if (lastError) throw lastError;
+            throw new Error('No se pudo completar la solicitud');
+        }
+
         const AUTH_TOKEN_KEY = 'pizzeria_admin_jwt';
         const AUTH_EXP_KEY = 'pizzeria_admin_jwt_exp';
         const AUTH_USER_KEY = 'pizzeria_admin_user';
@@ -425,6 +617,15 @@
         const submitBtn = document.getElementById('submit-btn');
         const cancelBtn = document.getElementById('cancel-btn');
         const refreshBtn = document.getElementById('refresh-btn');
+        const kpiTotalEl = document.getElementById('kpi-total');
+        const kpiPromosEl = document.getElementById('kpi-promos');
+
+        const passwordForm = document.getElementById('password-form');
+        const pwdCurrentEl = document.getElementById('pwd-current');
+        const pwdNewEl = document.getElementById('pwd-new');
+        const pwdConfirmEl = document.getElementById('pwd-confirm');
+        const pwdSubmitBtn = document.getElementById('pwd-submit-btn');
+        const pwdMsgEl = document.getElementById('pwd-msg');
 
         const fields = {
             id: document.getElementById('meal-id'),
@@ -456,8 +657,42 @@
             formMsgEl.textContent = message || '';
         }
 
+        function showPasswordMessage(message, isError) {
+            pwdMsgEl.className = isError ? 'err' : 'ok';
+            pwdMsgEl.textContent = message || '';
+        }
+
         function showListMessage(message) {
             listMsgEl.textContent = message || '';
+        }
+
+        function updateKpis() {
+            const total = Array.isArray(allMeals) ? allMeals.length : 0;
+            const promos = Array.isArray(allMeals)
+                ? allMeals.reduce((acc, meal) => acc + (meal && meal.es_promo ? 1 : 0), 0)
+                : 0;
+
+            if (kpiTotalEl) kpiTotalEl.textContent = 'Total: ' + total;
+            if (kpiPromosEl) kpiPromosEl.textContent = 'Promos: ' + promos;
+        }
+
+        function resolvePhotoUrl(url) {
+            const raw = String(url || '').trim();
+            if (!raw) return '';
+
+            if (/^(https?:)?\/\//i.test(raw)) {
+                return raw.startsWith('//') ? window.location.protocol + raw : raw;
+            }
+
+            if (raw.startsWith('data:') || raw.startsWith('blob:')) {
+                return raw;
+            }
+
+            if (raw.startsWith('/')) {
+                return API_BASE_URL ? API_BASE_URL + raw : raw;
+            }
+
+            return raw;
         }
 
         function setSession(username, token, expiresAt) {
@@ -501,6 +736,8 @@
             } else {
                 sessionInfoEl.textContent = 'Sin sesion iniciada';
                 rowsEl.innerHTML = '<tr><td colspan="7">Inicia sesion para administrar.</td></tr>';
+                allMeals = [];
+                updateKpis();
             }
         }
 
@@ -514,7 +751,7 @@
                 headers.Authorization = 'Bearer ' + authToken;
             }
 
-            const response = await fetch(finalURL, {
+            const response = await fetchWithQuickRetry(finalURL, {
                 ...options,
                 headers,
             });
@@ -530,7 +767,9 @@
                     clearSession();
                     showLoginMessage('Sesion expirada o token invalido. Inicia sesion de nuevo.', true);
                 }
-                throw new Error(message);
+                const apiError = new Error(message);
+                apiError.status = response.status;
+                throw apiError;
             }
             return data;
         }
@@ -588,6 +827,56 @@
             };
         }
 
+        function clearPasswordForm() {
+            if (passwordForm) passwordForm.reset();
+            showPasswordMessage('', false);
+        }
+
+        async function changeAdminPassword(currentPassword, newPassword) {
+            const payload = {
+                current_password: currentPassword,
+                old_password: currentPassword,
+                new_password: newPassword,
+                password: newPassword,
+            };
+
+            const attempts = [
+                { url: '/api/admin/password', method: 'PUT' },
+                { url: '/api/admin/password', method: 'POST' },
+            ];
+
+            let lastError = null;
+
+            for (const attempt of attempts) {
+                try {
+                    await api(attempt.url, {
+                        method: attempt.method,
+                        body: JSON.stringify(payload),
+                    });
+                    return;
+                } catch (error) {
+                    lastError = error;
+                    const status = Number(error && error.status);
+                    const message = String((error && error.message) || '').toLowerCase();
+                    const canTryNext =
+                        status === 404 ||
+                        status === 405 ||
+                        status === 501 ||
+                        (status === 400 && (message.includes('unknown field') || message.includes('invalid json')));
+
+                    if (canTryNext) {
+                        continue;
+                    }
+
+                    throw error;
+                }
+            }
+
+            if (lastError) {
+                throw new Error('No se pudo actualizar la contrasenia en /api/admin/password.');
+            }
+        }
+
         function renderRows() {
             const term = searchEl.value.trim().toLowerCase();
             const filtered = !term
@@ -604,8 +893,9 @@
 
             rowsEl.innerHTML = filtered.map((meal) => {
                 const promoTag = meal.es_promo ? '<span class="tag">PROMO</span>' : '-';
-                const foto = meal.foto
-                    ? `<img class="thumb" src="${escapeHtml(meal.foto)}" alt="${escapeHtml(meal.nombre)}">`
+                const photoUrl = resolvePhotoUrl(meal.foto);
+                const foto = photoUrl
+                    ? `<img class="thumb" src="${escapeHtml(photoUrl)}" alt="${escapeHtml(meal.nombre)}">`
                     : '<div class="thumb"></div>';
 
                 return `
@@ -635,8 +925,11 @@
             showListMessage('');
             try {
                 allMeals = await api('/api/admin/comidas');
+                updateKpis();
                 renderRows();
             } catch (error) {
+                allMeals = [];
+                updateKpis();
                 showListMessage(error.message);
             }
         }
@@ -653,7 +946,7 @@
             }
 
             try {
-                const response = await fetch(apiUrl('/api/admin/login'), {
+                const response = await fetchWithQuickRetry(apiUrl('/api/admin/login'), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username, password }),
@@ -727,6 +1020,52 @@
             loadMeals();
         });
 
+        passwordForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            showPasswordMessage('', false);
+
+            if (!authToken) {
+                showPasswordMessage('Inicia sesion para cambiar la contrasenia.', true);
+                return;
+            }
+
+            const currentPassword = pwdCurrentEl.value.trim();
+            const nextPassword = pwdNewEl.value.trim();
+            const confirmPassword = pwdConfirmEl.value.trim();
+
+            if (!currentPassword || !nextPassword || !confirmPassword) {
+                showPasswordMessage('Completa los 3 campos de contrasenia.', true);
+                return;
+            }
+
+            if (nextPassword.length < 8) {
+                showPasswordMessage('La nueva contrasenia debe tener al menos 8 caracteres.', true);
+                return;
+            }
+
+            if (nextPassword !== confirmPassword) {
+                showPasswordMessage('La confirmacion no coincide con la nueva contrasenia.', true);
+                return;
+            }
+
+            if (currentPassword === nextPassword) {
+                showPasswordMessage('La nueva contrasenia no puede ser igual a la actual.', true);
+                return;
+            }
+
+            pwdSubmitBtn.disabled = true;
+            try {
+                await changeAdminPassword(currentPassword, nextPassword);
+                clearPasswordForm();
+                clearSession();
+                showLoginMessage('Contrasenia actualizada. Inicia sesion nuevamente.', false);
+            } catch (error) {
+                showPasswordMessage(error.message || 'No se pudo actualizar la contrasenia.', true);
+            } finally {
+                pwdSubmitBtn.disabled = false;
+            }
+        });
+
         rowsEl.addEventListener('click', async (event) => {
             const button = event.target.closest('button[data-action]');
             if (!button) return;
@@ -758,6 +1097,7 @@
         });
 
         resetForm();
+        clearPasswordForm();
         loadSessionFromStorage();
         applySessionUI();
         if (authToken) {
