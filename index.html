@@ -813,6 +813,49 @@
             color: var(--red-dark);
         }
 
+        .transfer-box {
+            background: #fff7eb;
+            border: 1px solid #f1d9b9;
+            border-radius: 10px;
+            padding: 12px;
+        }
+
+        .transfer-box p {
+            margin: 0 0 8px;
+            font-size: 13px;
+            color: #5b4b39;
+            line-height: 1.4;
+        }
+
+        .transfer-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .transfer-row .form-input {
+            margin: 0;
+            background: #fff;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+
+        .copy-btn {
+            border: none;
+            border-radius: 9px;
+            padding: 10px 12px;
+            background: var(--red);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .copy-btn:hover {
+            background: var(--red-dark);
+        }
+
         .order-mini {
             background: var(--cream);
             border: 1px solid #e8d8c4;
@@ -1005,7 +1048,7 @@
     <header class="hero">
         <div class="hero-inner">
             <div class="hero-text">
-                <div class="hero-badge">&#x2726; Desde el barrio con amor &#x2726;</div>
+                <div class="hero-badge">36 a&ntilde;os de experiencia</div>
                 <h1 class="hero-title">Pizzeria<br><span>Las Nenas</span></h1>
                 <p class="hero-sub">Pizzas artesanales &middot; Delivery a domicilio</p>
                 <div class="hero-contacts">
@@ -1015,6 +1058,9 @@
                     <a class="contact-pill" href="tel:1126390108">
                         <span class="icon">&#x1F4F1;</span> 1126390108
                     </a>
+                    <span class="contact-pill">
+                        <span class="icon">&#x1F551;</span> 19:30 a 23:30 &middot; Martes cerrado
+                    </span>
                 </div>
             </div>
             <div class="hero-pizza">&#x1F355;</div>
@@ -1209,6 +1255,11 @@
                     <input class="form-input" id="f-dir" type="text" placeholder="Calle, numero, piso, depto...">
                 </div>
                 <div class="form-group">
+                    <label class="form-label">Indicacion de la casa <span
+                            style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">(opcional)</span></label>
+                    <input class="form-input" id="f-indicacion" type="text" placeholder="Ej: casa roja timbre">
+                </div>
+                <div class="form-group">
                     <label class="form-label">Entre calles <span
                             style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">(opcional)</span></label>
                     <input class="form-input" id="f-calles" type="text" placeholder="Ej: entre Mitre y Belgrano">
@@ -1223,6 +1274,16 @@
                         <div class="pago-opt" id="opt-transferencia" onclick="selectPago('transferencia')">
                             <div class="pago-icon">&#x1F3E6;</div>
                             <div class="pago-name">Transferencia</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" id="group-transfer" style="display:none">
+                    <label class="form-label">Datos para transferencia</label>
+                    <div class="transfer-box">
+                        <p>A nombre de <strong>Pablo Nicol&aacute;s Casquero</strong></p>
+                        <div class="transfer-row">
+                            <input class="form-input" id="f-transfer-alias" type="text" value="Pizzerialasnenas" readonly>
+                            <button class="copy-btn" type="button" onclick="copyTransferAlias()">Copiar alias</button>
                         </div>
                     </div>
                 </div>
@@ -1594,20 +1655,53 @@
             currentDrawerView = 'checkout';
             pagoSel = '';
             renderDrawer();
+            const optEf = document.getElementById('opt-efectivo');
+            const optTr = document.getElementById('opt-transferencia');
+            const gMonto = document.getElementById('group-monto');
+            const gTransfer = document.getElementById('group-transfer');
+            if (optEf) optEf.className = 'pago-opt';
+            if (optTr) optTr.className = 'pago-opt';
+            if (gMonto) gMonto.style.display = 'none';
+            if (gTransfer) gTransfer.style.display = 'none';
         }
 
         function selectPago(tipo) {
             pagoSel = tipo;
             document.getElementById('opt-efectivo').className = 'pago-opt' + (tipo === 'efectivo' ? ' sel' : '');
             document.getElementById('opt-transferencia').className = 'pago-opt' + (tipo === 'transferencia' ? ' sel' : '');
-            const g = document.getElementById('group-monto');
-            if (g) g.style.display = tipo === 'efectivo' ? 'block' : 'none';
+            const gMonto = document.getElementById('group-monto');
+            const gTransfer = document.getElementById('group-transfer');
+            if (gMonto) gMonto.style.display = tipo === 'efectivo' ? 'block' : 'none';
+            if (gTransfer) gTransfer.style.display = tipo === 'transferencia' ? 'block' : 'none';
             if (tipo !== 'efectivo') { const m = document.getElementById('f-monto'); if (m) m.value = ''; }
+        }
+
+        async function copyTransferAlias() {
+            const aliasInput = document.getElementById('f-transfer-alias');
+            if (!aliasInput) return;
+            const alias = aliasInput.value.trim();
+            if (!alias) return;
+
+            try {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    await navigator.clipboard.writeText(alias);
+                } else {
+                    aliasInput.focus();
+                    aliasInput.select();
+                    document.execCommand('copy');
+                }
+                alert('Alias copiado: ' + alias);
+            } catch (error) {
+                aliasInput.focus();
+                aliasInput.select();
+                alert('No se pudo copiar automaticamente. Copialo manualmente: ' + alias);
+            }
         }
 
         function sendOrder() {
             const nombre = document.getElementById('f-nombre').value.trim();
             const dir = document.getElementById('f-dir').value.trim();
+            const indicacionCasa = document.getElementById('f-indicacion').value.trim();
             const calles = document.getElementById('f-calles').value.trim();
             const montoRaw = document.getElementById('f-monto') ? document.getElementById('f-monto').value.trim() : '';
             if (!nombre) { alert('Por favor ingresa tu nombre.'); return; }
@@ -1617,6 +1711,8 @@
             const total = cart.reduce((a, c) => a + (c.price * c.qty), 0);
             const pagoLabel = pagoSel === 'transferencia' ? 'Transferencia bancaria' : 'Efectivo';
             const montoPago = pagoSel === 'efectivo' && montoRaw ? '\n\uD83D\uDCB5 *Abona con:* ARS ' + parseInt(montoRaw).toLocaleString('es-AR') + ',00' : '';
+            const infoTransfer = pagoSel === 'transferencia' ? '\n\uD83C\uDFE6 *Alias:* Pizzerialasnenas\n\uD83D\uDC64 *Titular:* Pablo Nicolas Casquero' : '';
+            const detalleCasa = indicacionCasa ? '\n\ud83c\udfe0 *Indicacion de la casa:* ' + indicacionCasa : '';
             const entreCalles = calles ? '\n\u2194\uFE0F *Entre calles:* ' + calles : '';
 
             // Armamos el mensaje de WhatsApp
@@ -1625,8 +1721,8 @@
                 `\uD83C\uDF55 *NUEVO PEDIDO - Pizzeria Las Nenas*
 
 \uD83D\uDC64 *Cliente:* ${nombre}
-\uD83D\uDCCD *Direccion:* ${dir}${entreCalles}
-\uD83D\uDCB3 *Pago:* ${pagoLabel}${montoPago}
+\uD83D\uDCCD *Direccion:* ${dir}${detalleCasa}${entreCalles}
+\uD83D\uDCB3 *Pago:* ${pagoLabel}${montoPago}${infoTransfer}
 
 \uD83D\uDCCB *Detalle del pedido:*
 ${lineas}
