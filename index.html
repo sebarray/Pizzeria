@@ -1248,21 +1248,19 @@
 
                 <div class="form-group">
                     <label class="form-label">Tu nombre completo</label>
-                    <input class="form-input" id="f-nombre" type="text" placeholder="Ej: Maria Garcia">
+                    <input class="form-input" id="f-nombre" type="text" placeholder="Ej: Maria Garcia" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Direccion de entrega</label>
-                    <input class="form-input" id="f-dir" type="text" placeholder="Calle, numero, piso, depto...">
+                    <input class="form-input" id="f-dir" type="text" placeholder="Calle, numero, piso, depto..." required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Indicacion de la casa <span
-                            style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">(opcional)</span></label>
-                    <input class="form-input" id="f-indicacion" type="text" placeholder="Ej: casa roja timbre">
+                    <label class="form-label">Indicacion de la casa</label>
+                    <input class="form-input" id="f-indicacion" type="text" placeholder="Ej: casa roja timbre" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Entre calles <span
-                            style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">(opcional)</span></label>
-                    <input class="form-input" id="f-calles" type="text" placeholder="Ej: entre Mitre y Belgrano">
+                    <label class="form-label">Entre calles</label>
+                    <input class="form-input" id="f-calles" type="text" placeholder="Ej: entre Mitre y Belgrano" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Metodo de pago</label>
@@ -1291,7 +1289,7 @@
                     <label class="form-label">Con cuanto pagas? <span
                             style="font-size:11px;font-weight:400;text-transform:none;letter-spacing:0;color:#bbb">(para
                             el vuelto)</span></label>
-                    <input class="form-input" id="f-monto" type="number" placeholder="Ej: 50000" min="0"
+                    <input class="form-input" id="f-monto" type="number" placeholder="Ej: 50000" min="0" step="1"
                         style="font-size:16px;">
                 </div>
             </div>
@@ -1659,10 +1657,15 @@
             const optTr = document.getElementById('opt-transferencia');
             const gMonto = document.getElementById('group-monto');
             const gTransfer = document.getElementById('group-transfer');
+            const montoInput = document.getElementById('f-monto');
             if (optEf) optEf.className = 'pago-opt';
             if (optTr) optTr.className = 'pago-opt';
             if (gMonto) gMonto.style.display = 'none';
             if (gTransfer) gTransfer.style.display = 'none';
+            if (montoInput) {
+                montoInput.required = false;
+                montoInput.value = '';
+            }
         }
 
         function selectPago(tipo) {
@@ -1671,9 +1674,13 @@
             document.getElementById('opt-transferencia').className = 'pago-opt' + (tipo === 'transferencia' ? ' sel' : '');
             const gMonto = document.getElementById('group-monto');
             const gTransfer = document.getElementById('group-transfer');
+            const montoInput = document.getElementById('f-monto');
             if (gMonto) gMonto.style.display = tipo === 'efectivo' ? 'block' : 'none';
             if (gTransfer) gTransfer.style.display = tipo === 'transferencia' ? 'block' : 'none';
-            if (tipo !== 'efectivo') { const m = document.getElementById('f-monto'); if (m) m.value = ''; }
+            if (montoInput) {
+                montoInput.required = tipo === 'efectivo';
+                if (tipo !== 'efectivo') montoInput.value = '';
+            }
         }
 
         async function copyTransferAlias() {
@@ -1706,14 +1713,17 @@
             const montoRaw = document.getElementById('f-monto') ? document.getElementById('f-monto').value.trim() : '';
             if (!nombre) { alert('Por favor ingresa tu nombre.'); return; }
             if (!dir) { alert('Por favor ingresa tu direccion de entrega.'); return; }
+            if (!indicacionCasa) { alert('Por favor ingresa la indicacion de la casa.'); return; }
+            if (!calles) { alert('Por favor ingresa entre calles.'); return; }
             if (!pagoSel) { alert('Por favor elegi un metodo de pago.'); return; }
+            if (pagoSel === 'efectivo' && !montoRaw) { alert('Por favor ingresa con cuanto pagas en efectivo.'); return; }
 
             const total = cart.reduce((a, c) => a + (c.price * c.qty), 0);
             const pagoLabel = pagoSel === 'transferencia' ? 'Transferencia bancaria' : 'Efectivo';
             const montoPago = pagoSel === 'efectivo' && montoRaw ? '\n\uD83D\uDCB5 *Abona con:* ARS ' + parseInt(montoRaw).toLocaleString('es-AR') + ',00' : '';
             const infoTransfer = pagoSel === 'transferencia' ? '\n\uD83C\uDFE6 *Alias:* Pizzerialasnenas\n\uD83D\uDC64 *Titular:* Pablo Nicolas Casquero' : '';
-            const detalleCasa = indicacionCasa ? '\n\ud83c\udfe0 *Indicacion de la casa:* ' + indicacionCasa : '';
-            const entreCalles = calles ? '\n\u2194\uFE0F *Entre calles:* ' + calles : '';
+            const detalleCasa = '\n\ud83c\udfe0 *Indicacion de la casa:* ' + indicacionCasa;
+            const entreCalles = '\n\u2194\uFE0F *Entre calles:* ' + calles;
 
             // Armamos el mensaje de WhatsApp
             const lineas = cart.map(c => `  - ${c.qty}x ${c.name} - ${fmt(c.price * c.qty)}`).join('\n');
